@@ -44,7 +44,7 @@ footer ul li {
 }
 .main {
     background: #7E5288;
-    height: 700px;
+    height: 800px;
 }
 
 .img {
@@ -66,18 +66,32 @@ footer ul li {
     font-family: Inter;
 }
 
-.classes_list {
+.classes_list li{
     list-style-type: none;
     text-align: left;
+    margin-top: 20px;
 }
-.classes_list a:link {
+.classes_list li a:link {
+    text-decoration: none;
+    color:black;
+    
+}
+
+.classes_list li a:visited {
     text-decoration: none;
     color:black;
 }
 
-.classes_list a:visited {
-    text-decoration: none;
-    color:black;
+.namebox {
+    display:inline;
+    display:inline-block;
+    margin: 5px;
+}
+
+.accounts li{
+    list-style-type: none;
+    text-align: center;
+    margin-top: 20px;
 }
 
 a.nav:link {

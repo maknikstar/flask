@@ -4,7 +4,11 @@
     <div class="col-1"></div>
     <div class="col-4 inner_box">
         <img src="{{ url_for('static', filename='user.png')}}" height="50%">
-        <span><h3>Дворянчикова Екатерина</h3><img src="{{ url_for('static', filename='edit_btn.png')}}" height="30"></span>
+        <div>
+          <span class="namebox"><h3>Дворянчикова Екатерина</h3></span>
+          <span class="namebox"><img src="{{ url_for('static', filename='edit_btn.png')}}" height="30"></span>
+        </div>
+        
     </div>
     <div class="col-2"></div>
     <div class="col-4 inner_box">
@@ -25,11 +29,17 @@
     <div class="col-1"></div>
     <div class="col-4 inner_box">
         <h3>Контактные данные</h3>
+        <ul class="classes_list">
+          <li><h4>Почта</h4></li>
+          <li>katya_dvoryanchikova@nika-school.ru <img src="{{ url_for('static', filename='edit_btn.png')}}" height="20"></li>
+          <li><h4>Номер телефона</h4></li>
+          <li>+7 (987) 123-45-67 <img src="{{ url_for('static', filename='edit_btn.png')}}" height="20"></li>
+        </ul>
     </div>
     <div class="col-2"></div>
     <div class="col-4 inner_box">
       <h3>Добавить аккаунт</h3>
-      <ul>
+      <ul class="accounts">
 
         <li><a href="" class="add_btn">Учитель</a></li>
         <li><a href="" class="add_btn">Ученик</a></li>
