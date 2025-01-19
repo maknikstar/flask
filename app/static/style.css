@@ -30,6 +30,7 @@ nav {
 footer {
     height: auto;
     min-height: 90px;
+    background-color: #7E5288;
 }
 footer ul li {
     list-style-type: none;
@@ -38,7 +39,7 @@ footer ul li {
     padding: 0;
     text-decoration: none;
     font-family: Inter;
-    color: #000;
+    color: #FFF;
     font-size: 12px;
 }
 .main {
@@ -50,6 +51,33 @@ footer ul li {
     height: 80px;
     margin-left: 40px;
     
+}
+
+.bg {
+    background-color: #C2B4C6;
+    height: auto;
+    min-height: 300px;
+}
+
+.inner_box {
+    background-color: #FFF;
+    border-radius: 30px;
+    margin-top: 30px;
+    font-family: Inter;
+}
+
+.classes_list {
+    list-style-type: none;
+    text-align: left;
+}
+.classes_list a:link {
+    text-decoration: none;
+    color:black;
+}
+
+.classes_list a:visited {
+    text-decoration: none;
+    color:black;
 }
 
 a.nav:link {
@@ -69,12 +97,29 @@ a.nav:visited {
 a.ftr:link {
     text-decoration: none;
     font-family: Inter;
-    color: #000;
+    color: #FFF;
     font-size: 12px;
 }
 a.ftr:visited {
     text-decoration: none;
     font-family: Inter;
-    color: #000;
+    color: #FFF;
     font-size: 12px;
+}
+
+a.add_btn:link {
+    text-decoration: none;
+    color:#FFF;
+    background-color: #461352;
+    margin: 20px;
+    padding: 5px 20px;
+    border-radius: 10px;
+}
+a.add_btn:visited {
+    text-decoration: none;
+    color:#FFF;
+    background-color: #461352;
+    margin: 20px;
+    padding: 50px 20px;
+    border-radius: 10px;
 }
