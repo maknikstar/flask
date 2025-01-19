@@ -1,0 +1,12 @@
+footer {
+    background-color: #FFF;
+}
+footer ul li {
+    color: #000;
+}
+a.ftr:link {
+    color: #000;
+}
+a.ftr:visited {
+    color: #000;
+}
