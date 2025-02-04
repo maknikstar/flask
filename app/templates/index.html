@@ -17,19 +17,29 @@
     <nav class="container-fluid">
         <div class="row">
             <div class="col"><img src="{{ url_for('static', filename='logo.png')}}" class="img"></div>
-            <div class="col"><a href="{{ url_for('index')}}" class="nav">Личный кабинет</a></div>
+            <div class="col"><a href="{{ url_for('index') }}" class="nav">Главная страница</a></div>
+            {% if current_user.is_authenticated %}
+            <div class="col"><a href="{{ url_for('second')}}" class="nav">Личный кабинет</a></div>
+
+            <div class="col"><a href="{{ url_for('logout')}}" class="nav">Выйти из аккаунта</a></div>
+            {% else %}
+            <div class="col"><a href="{{ url_for('login')}}" class="nav">Логин</a></div>
+            <div class="col"><a href="{{ url_for('register')}}" class="nav">Регистрация</a></div>
+            {% endif %}
+
             <div class="col"><a href="{{ url_for('index')}}" class="nav">Классы</a></div>
-            <div class="col"></div>
+
+
             <div class="col"></div>
         </div>
     </nav>
     <div class="container-fluid main">
   <div class="row">
     <div class="col-12">
-        <div style="position: relative; border: solid 1px #FFF; height:500px; margin: 50px">
-          <h2 style="margin-top: 100px; font-size: 48px; color:#FFF">Данный сайт создан с целью....бла, бла, бла</h2>
-          <div style="position: relative; width:700px; height:200px; margin: 0 auto; background: #FFF; border-radius: 30px">
-              <h3 style="font-size: 48px; margin: 60px; color:#7E5288">Катя Дворянчикова</h3>
+        <div style="position: relative; border: solid 1px #FFF;  height: auto; min-height:700px; margin: 50px">
+          <h2 style="margin-top: 100px; font-size: 48px; color:#FFF">Добро пожаловать</h2>
+          <div style="position: relative; width:700px; height: auto; min-height:200px; margin: 0 auto; background: #FFF; border-radius: 30px">
+              <h3 style="font-size: 48px; margin: 60px; color:#7E5288">сайт контроля посещаймости и организации учеников ОАНО "Ника"</h3>
 
           </div>
         </div>
