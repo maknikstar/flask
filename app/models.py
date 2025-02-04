@@ -47,7 +47,7 @@ def load_user(id):
 
 
 class Classes(db.Model):
-
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
     class_id: so.Mapped[int] = so.mapped_column(primary_key=True)
     class_name: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
     class_parral: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
@@ -58,7 +58,7 @@ class Classes(db.Model):
 
 class Student(db.Model):
 
-    student_id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    id: so.Mapped[int] = so.mapped_column(primary_key=True)
     surname: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
     name: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
     class_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Classes.id, ondelete="CASCADE"), index=True)
