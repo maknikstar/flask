@@ -62,11 +62,11 @@ class Student(db.Model):
     surname: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
     name: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
     class_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Classes.id, ondelete="CASCADE"), index=True)
-    tutor_id: so.Mapped[int] = so.mapped_column(sa.Integer(50), index=True)
+    tutor_id: so.Mapped[int] = so.mapped_column(sa.Integer(), index=True)
     paral: so.Mapped[str] = so.mapped_column(sa.String(128), index=True)
     uuid: so.Mapped[str] = so.mapped_column(sa.Uuid(), index=True, default=uuid4())
     at_school: so.Mapped[bool] = so.mapped_column(sa.Boolean(), default=False)
-    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id, ondelete="CASCADE"), blank=True, null=True)
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id, ondelete="CASCADE"))
 
 
     def __repr__(self):
@@ -95,11 +95,11 @@ class Student(db.Model):
 #     def __repr__(self):
 #         return '<User {}>'.format(self.username)
 
-class Enter_exit(db.model):
+class Enter_exit(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    student_id = so.Mapped[int] = so.mapped_column(sa.ForeignKey(Student.id, ondelete="CASCADE"), index=True)
+    student_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Student.id, ondelete="CASCADE"), index=True)
     enter_time: so.Mapped[datetime] = so.mapped_column(
-        index=True, default=lambda: datetime.now(timezone.utc))
+        index=True, default=lambda: datetime.now())
     exit_time: so.Mapped[datetime] = so.mapped_column(
         index=True)
 
