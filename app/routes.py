@@ -51,3 +51,4 @@ def logout():
 @app.route('/second')
 def second_page():
     return render_template('second.html', title='Home')
+
