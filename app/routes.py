@@ -52,3 +52,4 @@ def logout():
 def second_page():
     return render_template('second.html', title='Home')
 
+# привет мир
