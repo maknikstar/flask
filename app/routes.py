@@ -12,7 +12,6 @@ from app.forms import RegistrationForm, LoginForm
 @app.route('/')
 @app.route('/index')
 def index():
-    user = db.first_or_404(sa.select(User).where(User.id == current_user.id))
     return render_template('index.html', title='Home', user=user)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -49,7 +48,7 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@app.route('/user/<username>')
+@app.route('/user')
 def user(username):
-    user = db.first_or_404(sa.select(User).where(User.username == username))
+    user = current_user.id
     return render_template('second.html', title='Home', user=user)
