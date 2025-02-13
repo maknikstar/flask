@@ -12,7 +12,8 @@ from app.forms import RegistrationForm, LoginForm
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title='Home')
+    user = db.first_or_404(sa.select(User).where(User.id == current_user.id))
+    return render_template('index.html', title='Home', user=user)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -35,7 +36,7 @@ def register():
         return redirect(url_for('index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
+        user = User(username=form.username.data, email=form.email.data, status=4)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
@@ -48,6 +49,7 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@app.route('/second')
-def second_page():
-    return render_template('second.html', title='Home')
+@app.route('/user/<username>')
+def user(username):
+    user = db.first_or_404(sa.select(User).where(User.username == username))
+    return render_template('second.html', title='Home', user=user)
