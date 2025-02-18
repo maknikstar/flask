@@ -49,6 +49,11 @@ def logout():
     return redirect(url_for('index'))
 
 @app.route('/user')
-def user(username):
+def user():
     user = current_user.id
     return render_template('second.html', title='Home', user=user)
+
+@app.route('/creator')
+def creator():
+    
+    return redirect(url_for('creator.html'))
