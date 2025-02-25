@@ -62,16 +62,16 @@ class Student(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
     surname: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
     name: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
-    class_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Classes.id, ondelete="CASCADE"), index=True)
-    tutor_id: so.Mapped[int] = so.mapped_column(sa.Integer(), index=True)
+    class_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Classes.id, ondelete="CASCADE"), index=True, nullable=True)
+    tutor_id: so.Mapped[int] = so.mapped_column(sa.Integer(), index=True, nullable=True)
     paral: so.Mapped[str] = so.mapped_column(sa.String(128), index=True)
     uuid: so.Mapped[str] = so.mapped_column(sa.Uuid(), index=True, default=uuid4())
     at_school: so.Mapped[bool] = so.mapped_column(sa.Boolean(), default=False)
-    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id, ondelete="CASCADE"))
+    user_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(User.id, ondelete="CASCADE"), nullable=True)
 
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return '<User {}>'.format(self.name)
 
 # class User(db.model):
 

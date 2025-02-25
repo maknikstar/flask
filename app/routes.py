@@ -5,14 +5,14 @@ from flask import render_template, flash, redirect, url_for
 from flask_login import logout_user
 
 from app import db
-from app.models import User
-from app.forms import RegistrationForm, LoginForm
+from app.models import User, Student
+from app.forms import RegistrationForm, LoginForm, AddStudentsForm
 
 
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html', title='Home', user=user)
+    return render_template('index.html', title='Home')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -50,10 +50,24 @@ def logout():
 
 @app.route('/user')
 def user():
-    user = current_user.id
+    user = db.first_or_404(sa.select(User).where(User.username == current_user.username))
     return render_template('second.html', title='Home', user=user)
 
-@app.route('/creator')
-def creator():
-    
-    return redirect(url_for('creator.html'))
+@app.route("/add_students", methods=['GET', 'POST'])
+def add_students():
+    form = AddStudentsForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        surname = form.surname.data
+        paral = form.par.data
+        class_ = form.class_.data
+        student = Student(name=name, surname=surname, paral=paral)
+        db.session.add(student)
+        db.session.commit()
+        return redirect(url_for('user'))
+    return render_template('add_students.html', title='Добавить студентов', form=form)
+
+@app.route('/class/<int:num>',methods=['GET'])
+def classes(num):
+    students = db.session.scalars(sa.select(Student).filter(Student.paral==num))
+    return render_template('classes.html', title=str(num) + 'классы', students=students)

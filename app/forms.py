@@ -31,9 +31,10 @@ class RegistrationForm(FlaskForm):
     if user is not None:
       raise ValidationError('используйте другую электронную почту')
 
-class CreatorForm(FlaskForm):
+class AddStudentsForm(FlaskForm):
   name = StringField('Имя', validators=[DataRequired()])
   surname = StringField('Фамилия', validators=[DataRequired()])
-  classes_dropdown_list = ['5а', '5б', '5в', '5г', '6а', '6б', '6в', '6г', '7а', '7б', '7в', '7г'] # You can get this from your model
-  class = SelectField('Classes', choices=classes_dropdown_list, default=1)
-  
+  par = SelectField('Параллель', choices=list(range(5, 12)))
+  class_ = SelectField('Класс', choices=['А', 'Б', 'В', 'Г', 'Д'])
+  submit = SubmitField('Регистрация')
+

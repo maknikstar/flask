@@ -14,13 +14,9 @@
     <div class="col-4 inner_box">
         <h3>Список классов</h3>
         <ul class="classes_list">
-          <li><a href="">5 классы</a></li>
-          <li><a href="">6 классы</a></li>
-          <li><a href="">7 классы</a></li>
-          <li><a href="">8 классы</a></li>
-          <li><a href="">9 классы</a></li>
-          <li><a href="">10 классы</a></li>
-          <li><a href="">11 классы</a></li>
+          {% for i in range(5, 12) %}
+          <li><a href="{{ url_for('classes', num=i)}}">{{ i }} классы</a></li>
+          {% endfor %}
         </ul>
     </div>
     <div class="col-1"></div>
@@ -40,7 +36,7 @@
     <div class="col-4 inner_box">
       <h3>Добавить аккаунт</h3>
       <ul class="accounts">
-        <div class="col"><a href="{{ url_for('creator')}}" class="nav">Создать список класса </a></div>
+
         <li><a href="" class="add_btn">Учитель</a></li>
         <li><a href="" class="add_btn">Ученик</a></li>
       </ul>
