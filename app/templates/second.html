@@ -37,8 +37,8 @@
       <h3>Добавить аккаунт</h3>
       <ul class="accounts">
 
-        <li><a href="" class="add_btn">Учитель</a></li>
-        <li><a href="" class="add_btn">Ученик</a></li>
+        <li><a href="{{ url_for('add_teacher', class=add_btn)}}">Учитель</a></li>
+        <li><a href="{{ url_for('add_students', class=add_btn)}}">Ученик</a></li>
       </ul>
       
       

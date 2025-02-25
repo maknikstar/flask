@@ -49,7 +49,6 @@ def load_user(id):
 
 class Classes(db.Model):
     id: so.Mapped[int] = so.mapped_column(primary_key=True)
-    class_id: so.Mapped[int] = so.mapped_column(primary_key=True)
     class_name: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
     class_parral: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
 
