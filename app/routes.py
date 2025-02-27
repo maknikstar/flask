@@ -6,7 +6,7 @@ from flask_login import logout_user
 
 from app import db
 from app.models import User, Student, Classes
-from app.forms import RegistrationForm, LoginForm, AddStudentsForm, 
+from app.forms import RegistrationForm, LoginForm, AddStudentsForm, EditInformationForm
 
 
 @app.route('/')
@@ -82,13 +82,16 @@ def classes(num):
 
 def edit_data():
     form = EditInformationForm()
+    u_id = current_user.id
     if form.validate_on_submit():
         name = form.name.data
         surname = form.surname.data
-        paral = form.par.data
-        class_ = form.class_.data
-        student = Student(name=name, surname=surname, paral=paral, class_id=class_id.id)
-        db.session.add(student)
+        new_data = {}
+        if name:
+            new_data.update({"name": name})
+        if surname:
+            new_data.update({"surname": surname})
+        usr = User.query.filter_by(user_id = u_id).update(new_data)
         db.session.commit()
         return redirect(url_for('user'))
     return render_template('edit_informstion.html', title='Редактировать информацию пользователей', form=form)

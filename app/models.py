@@ -24,8 +24,8 @@ class User(UserMixin, db.Model):
     email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, unique=True)
     password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
     status: so.Mapped[Status] = so.mapped_column(sa.INTEGER)
-    phone: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, unique=True)
-    
+    phone: so.Mapped[str] = so.mapped_column(sa.String(120), nullable=True)
+
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 

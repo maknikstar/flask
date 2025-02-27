@@ -41,6 +41,6 @@ class AddStudentsForm(FlaskForm):
 class EditInformationForm(FlaskForm):
   name = StringField('Имя', validators=[DataRequired()])
   surname = StringField('Фамилия', validators=[DataRequired()])
-  par = SelectField('Параллель', choices=list(range(5, 12)))
-  class_ = SelectField('Класс', choices=['А', 'Б', 'В', 'Г', 'Д'])
-  submit = SubmitField('Регистрация')
+  email = StringField('Электронная почта', validators=[DataRequired(), Email()])
+  phone = StringField('Номер телефона')
+  submit = SubmitField('Отредактировать')
