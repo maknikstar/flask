@@ -5,8 +5,8 @@ from flask import render_template, flash, redirect, url_for
 from flask_login import logout_user
 
 from app import db
-from app.models import User, Student
-from app.forms import RegistrationForm, LoginForm, AddStudentsForm
+from app.models import User, Student, Classes
+from app.forms import RegistrationForm, LoginForm, AddStudentsForm, 
 
 
 @app.route('/')
@@ -61,14 +61,34 @@ def add_students():
         surname = form.surname.data
         paral = form.par.data
         class_ = form.class_.data
-        student = Student(name=name, surname=surname, paral=paral)
+        class_id = db.session.scalar(sa.select(Classes).filter(Classes.class_name==str(paral) + class_))
+        print(class_id)
+        student = Student(name=name, surname=surname, paral=paral, class_id=class_id.id)
         db.session.add(student)
         db.session.commit()
         return redirect(url_for('user'))
     return render_template('add_students.html', title='Добавить студентов', form=form)
 
 @app.route('/class/<int:num>',methods=['GET'])
-def classes(num):
+def classes(num):   
     students = db.session.scalars(sa.select(Student).filter(Student.paral==num))
-    classes = db.session.scalars(sa.select(classes).filter(Classes.paral==num))
-    return render_template('classes.html', title=str(num) + 'классы', students=students, classes=classes)
+    classes = db.session.scalars(sa.select(Classes).filter(Classes.class_parral==num))
+    sts = {}
+    for student in students:
+        sts.setdefault(student.class_id, []).append(student)
+
+    print(sts)
+    return render_template('classes.html', title=str(num) + 'классы', students=sts, classes=classes)
+
+def edit_data():
+    form = EditInformationForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        surname = form.surname.data
+        paral = form.par.data
+        class_ = form.class_.data
+        student = Student(name=name, surname=surname, paral=paral, class_id=class_id.id)
+        db.session.add(student)
+        db.session.commit()
+        return redirect(url_for('user'))
+    return render_template('edit_informstion.html', title='Редактировать информацию пользователей', form=form)
