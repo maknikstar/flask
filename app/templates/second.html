@@ -16,6 +16,9 @@
         <ul class="classes_list">
           {% for i in range(5, 12) %}
           <li><a href="{{ url_for('classes', num=i)}}">{{ i }} классы</a></li>
+          <ol>
+            {{ for }}
+          </ol>
           {% endfor %}
         </ul>
     </div>

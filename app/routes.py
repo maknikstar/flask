@@ -70,4 +70,5 @@ def add_students():
 @app.route('/class/<int:num>',methods=['GET'])
 def classes(num):
     students = db.session.scalars(sa.select(Student).filter(Student.paral==num))
-    return render_template('classes.html', title=str(num) + 'классы', students=students)
+    classes = db.session.scalars(sa.select(classes).filter(Classes.paral==num))
+    return render_template('classes.html', title=str(num) + 'классы', students=students, classes=classes)
