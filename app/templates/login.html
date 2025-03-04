@@ -27,14 +27,14 @@
         <div class="login__block">
           <h4 class="login__h4">Войти в аккаунт</h4>
 
-          <!-- <form class="login__form" action="#" method="post">
+          <form class="login__form" action="#" method="post">
             <label class="login__form__label">Ваше имя</label>
-            <input class="login__form__input" type="text" name="name" placeholder="Логин"  required    />
+            <input class="login__form__input" type="text" name="username" placeholder="Логин"  required    />
             <label class="login__form__label">Пароль</label>
             <input
               class="login__form__input"
               type="password"
-              name="pass"
+              name="password"
               placeholder="Пароль"
               required
             />
@@ -45,11 +45,11 @@
             >
               Войти
             </button>
-          </form> -->
-          <form action="" method="post" novalidate class="authform" >
+          </form>
+          <!-- <form action="" method="post" novalidate class="authform" >
             {{ form.hidden_tag() }}
             <p>
-              {{ form.username.label }}<br>
+              {{ form..label }}<br>
               {{ form.username(size=32) }}
             </p>
             <p>
@@ -58,7 +58,7 @@
             </p>
             <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
             <p>{{ form.submit() }}</p>
-          </form>
+          </form> -->
           <a class="header__btn-link" href="{{ url_for('login')}}">
             <button class="btn-reset header__btn">Логин</button>
           </a>
