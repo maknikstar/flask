@@ -46,21 +46,8 @@
               Войти
             </button>
           </form>
-          <!-- <form action="" method="post" novalidate class="authform" >
-            {{ form.hidden_tag() }}
-            <p>
-              {{ form..label }}<br>
-              {{ form.username(size=32) }}
-            </p>
-            <p>
-              {{ form.password.label }}<br>
-              {{ form.password(size=32) }}
-            </p>
-            <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-            <p>{{ form.submit() }}</p>
-          </form> -->
-          <a class="header__btn-link" href="{{ url_for('login')}}">
-            <button class="btn-reset header__btn">Логин</button>
+          <a class="header__btn-link" href="{{ url_for('register')}}">
+            <button class="btn-reset header__btn">Ещё нет аккаунта?</button>
           </a>
 
         </div>

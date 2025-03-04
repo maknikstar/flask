@@ -43,40 +43,8 @@
               </button>
               <button class="btn-reset btn_style" type="submit" name="form_auth_submit">Админпанель</button>
             </form>
-            <!-- <form action="" method="post">
-              {{ form.hidden_tag() }}
-              <p>
-                  {{ form.username.label }}<br>
-                  {{ form.username(size=35) }}<br>
-                  {% for error in form.username.errors %}
-                  <span style="color: red;">[{{ error }}]</span>
-                  {% endfor %}
-              </p>
-              <p>
-                  {{ form.email.label }}<br>
-                  {{ form.email(size=35) }}<br>
-                  {% for error in form.email.errors %}
-                  <span style="color: red;">[{{ error }}]</span>
-                  {% endfor %}
-              </p>
-              <p>
-                  {{ form.password.label }}<br>
-                  {{ form.password(size=35) }}<br>
-                  {% for error in form.password.errors %}
-                  <span style="color: red;">[{{ error }}]</span>
-                  {% endfor %}
-              </p>
-              <p>
-                  {{ form.password2.label }}<br>
-                  {{ form.password2(size=35) }}<br>
-                  {% for error in form.password2.errors %}
-                  <span style="color: red;">[{{ error }}]</span>
-                  {% endfor %}
-              </p>
-              <p>{{ form.submit() }}</p>
-          </form> -->
           <a class="header__btn-link" href="{{ url_for('login')}}">
-            <button class="btn-reset header__btn">Ещё нет аккаунта?</button>
+            <button class="btn-reset header__btn">Уже есть аккаунта?</button>
           </a>
             <!-- <a href="dashboard.html" class="admin__link">
               <p>Вход в админпанель</p>
