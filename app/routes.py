@@ -2,7 +2,7 @@ from app import app
 from flask_login import current_user, login_user
 import sqlalchemy as sa
 from flask import render_template, flash, redirect, url_for, request
-from flask_login import logout_user
+from flask_login import logout_user, login_required
 
 from app import db
 from app.models import User, Student, Classes
@@ -16,7 +16,6 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    print(1)
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
@@ -81,6 +80,7 @@ def classes(num):
     print(sts)
     return render_template('classes.html', title=str(num) + 'классы', students=sts, classes=classes)
 
+@app.route('/edit data')
 def edit_data():
     form = EditInformationForm()
     u_id = current_user.id
@@ -96,3 +96,8 @@ def edit_data():
         db.session.commit()
         return redirect(url_for('user'))
     return render_template('edit_informstion.html', title='Редактировать информацию пользователей', form=form)
+
+@app.route("/dashboard")
+@login_required
+def dashboard():
+    return render_template('dashboard.html', title='Dashboard')
