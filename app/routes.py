@@ -95,7 +95,7 @@ def edit_data():
         usr = User.query.filter_by(user_id = u_id).update(new_data)
         db.session.commit()
         return redirect(url_for('user'))
-    return render_template('edit_informstion.html', title='Редактировать информацию пользователей', form=form)
+    return render_template('edit_data.html', title='Редактировать информацию пользователей', form=form)
 
 @app.route("/dashboard")
 @login_required
