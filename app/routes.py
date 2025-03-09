@@ -63,7 +63,7 @@ def add_students():
         class_ = form.class_.data
         class_id = db.session.scalar(sa.select(Classes).filter(Classes.class_name==str(paral) + class_))
         print(class_id)
-        student = Student(name=name, surname=surname, paral=paral, class_id=class_id.id)
+        student = Student(name=name, surname=surname, paral=paral, class_id=class_id)
         db.session.add(student)
         db.session.commit()
         return redirect(url_for('user'))
@@ -77,7 +77,6 @@ def classes(num):
     for student in students:
         sts.setdefault(student.class_id, []).append(student)
 
-    print(sts)
     return render_template('classes.html', title=str(num) + 'классы', students=sts, classes=classes)
 
 @app.route('/edit data')
@@ -98,6 +97,15 @@ def edit_data():
     return render_template('edit_data.html', title='Редактировать информацию пользователей', form=form)
 
 @app.route("/dashboard")
-@login_required
+# @login_required
 def dashboard():
-    return render_template('dashboard.html', title='Dashboard')
+    students = db.session.scalars(sa.select(Student))
+    print(students)
+    return render_template('dashboard.html', title='Панель управления', students=students)
+
+@app.route("/dashboard-users")
+# @login_required
+def dashboard_users():
+
+    return render_template('dashboard-users.html', title='Панель управления')
+

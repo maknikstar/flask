@@ -1,7 +1,11 @@
 {% extends "dashboard-base.html" %}
 
 {% block content %}
-                <!-- Данные будут вставлены сюда из файла data.json -->
+    <ul>
+        {% for student in students %}
+            <li>{{ student.name }}</li>
+        {% endfor %}
 
+    </ul>
 {% endblock %}
               
