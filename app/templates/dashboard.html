@@ -1,11 +1,18 @@
 {% extends "dashboard-base.html" %}
 
 {% block content %}
-    <ul>
         {% for student in students %}
-            <li>{{ student.name }}</li>
+        
+        <tr>
+            <td>{{ student.surname }} {{ student.name }}</td>
+            <td>{{ student.class_id }}</td>
+            <td>{{ student.class_id }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
         {% endfor %}
 
-    </ul>
+    
 {% endblock %}
               
