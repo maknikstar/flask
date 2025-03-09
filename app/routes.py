@@ -34,13 +34,20 @@ def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegistrationForm()
-    if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data, status=4)
+    if request.method == "POST":
+        user = User(
+            username=request.form.get('username'),
+            email=request.form.get('email'),
+            status=4
+        )
         user.set_password(form.password.data)
         db.session.add(user)
-        db.session.commit()
-        flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('login'))
+        try:
+            db.session.commit()
+            flash('Congratulations, you are now a registered user!')
+            return redirect(url_for('login'))
+        except:
+            pass
     return render_template('register.html', title='Register', form=form)
 
 @app.route('/logout')
