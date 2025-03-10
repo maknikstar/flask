@@ -1,13 +1,15 @@
-from app import app
-from flask_login import current_user, login_user
-import sqlalchemy as sa
-from flask import render_template, flash, redirect, url_for, request
-from flask_login import logout_user, login_required
+import json
 
+from app import app
 from app import db
 from app.models import User, Student, Classes
 from app.forms import RegistrationForm, LoginForm, AddStudentsForm, EditInformationForm
+from flask_login import current_user, login_user
+from flask import render_template, flash, redirect, url_for, request
+from flask_login import logout_user, login_required
+import sqlalchemy as sa
 
+from .utils import model_to_dict
 
 @app.route('/')
 @app.route('/index')
@@ -106,15 +108,16 @@ def edit_data():
 @app.route("/dashboard")
 # @login_required
 def dashboard():
-    students = db.session.scalars(sa.select(
-        Student.name,
-        Student.surname,
-        Classes.class_name
-        ).join(Classes, Classes.id==Student.class_id))
-    # students = Student.query.join(Classes, Student.class_id==Classes.id)
-    for st in students:
-        print(st.__dict__)
-    return render_template('dashboard.html', title='Панель управления', students=students)
+    # students = db.session.scalars(sa.select(
+    #     Student.name,
+    #     Student.surname,
+    #     Classes.class_name
+    #     ).join(Classes, Classes.id==Student.class_id))
+    students = Student.query.join(Classes, Student.class_id==Classes.id)
+    # for st in students:
+    #     print(st.__dict__)
+    students_json = json.dumps(model_to_dict(students))
+    return render_template('dashboard.html', title='Панель управления', students=students, students_json=students_json)
 
 @app.route("/dashboard-users")
 # @login_required
