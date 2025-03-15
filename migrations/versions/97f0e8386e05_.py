@@ -1,17 +1,19 @@
 """empty message
 
-Revision ID: cc577f0bfbb2
-Revises: e29333ae0034
-Create Date: 2025-03-15 18:29:32.402161
+Revision ID: 97f0e8386e05
+Revises: 
+Create Date: 2025-03-15 18:49:31.340362
 
 """
 from alembic import op
 import sqlalchemy as sa
+from sqlalchemy.sql import table, column
+from sqlalchemy import String, Integer
 
 
 # revision identifiers, used by Alembic.
-revision = 'cc577f0bfbb2'
-down_revision = 'e29333ae0034'
+revision = '97f0e8386e05'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -81,6 +83,14 @@ def upgrade():
         batch_op.create_index(batch_op.f('ix_enter_exit_student_id'), ['student_id'], unique=False)
 
     # ### end Alembic commands ###
+    classes = table('classes',
+                    column("class_name", String),
+                    column("class_parral", Integer))
+    classes_list = [{"class_name": str(num) + let, "class_parral": num} for num in range(5,12) for let in 'АБВГ']
+    classes_list.insert(9, {"class_name": '6Д', "class_parral": 6})
+    op.bulk_insert(classes,
+       classes_list
+    )
 
 
 def downgrade():
