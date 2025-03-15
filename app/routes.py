@@ -78,15 +78,24 @@ def add_students():
         return redirect(url_for('user'))
     return render_template('add_students.html', title='Добавить студентов', form=form)
 
-@app.route('/class/<int:num>',methods=['GET'])
-def classes(num):   
-    students = db.session.scalars(sa.select(Student).filter(Student.paral==num))
-    classes = db.session.scalars(sa.select(Classes).filter(Classes.class_parral==num))
-    sts = {}
-    for student in students:
-        sts.setdefault(student.class_id, []).append(student)
+@app.route("/classes_all")
+def classes_all():
+    return render_template('classes_all.html', num=0)
 
-    return render_template('classes.html', title=str(num) + 'классы', students=sts, classes=classes)
+@app.route('/paral/<int:num>', methods=['GET'])
+def paral(num):
+    classes = db.session.scalars(sa.select(Classes).filter(Classes.class_parral==num))
+    return render_template('classes_all.html', num=num, classes=classes)
+
+@app.route('/class/<int:num>', methods=['GET'])
+def classes(num):  
+    current_class = db.session.scalars(sa.select(Classes).filter(Classes.id==num)).first() 
+    students = model_to_dict(db.session.scalars(sa.select(Student).filter(Student.class_id==num)))
+    classes = db.session.scalars(sa.select(Classes).filter(Classes.class_parral==current_class.class_parral))
+    
+    current_class = db.session.scalars(sa.select(Classes).filter(Classes.id==num)).first()
+    title = current_class.class_parral + current_class.class_name
+    return render_template('classes.html', title=title, students=students, classes=classes)
 
 @app.route('/edit data')
 def edit_data():
