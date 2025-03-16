@@ -72,7 +72,7 @@ def add_students():
         class_ = form.class_.data
         class_id = db.session.scalar(sa.select(Classes).filter(Classes.class_name==str(paral) + class_))
         print(class_id)
-        student = Student(name=name, surname=surname, paral=paral, class_id=class_id)
+        student = Student(name=name, surname=surname, paral=paral, class_id=class_id.id)
         db.session.add(student)
         db.session.commit()
         return redirect(url_for('user'))

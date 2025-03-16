@@ -5,7 +5,12 @@ services:
     build: .
     ports:
       - 5000:5000
+    volumes:
+      - ./:/home/app/
     restart: unless-stopped
+    depends_on: 
+      - postgres
+
   postgres:
     env_file: ./docker/.env-postgresql
     container_name: postgres_flask_container
@@ -14,6 +19,10 @@ services:
        - flaskdb:/var/lib/postgresql/data
     ports:
       - 5432:5432
+    expose:
+      - 5432
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
     restart: unless-stopped
     networks:
       - backend
@@ -21,8 +30,7 @@ services:
 volumes:
     flaskdb:
       driver: local
-    pgadmin:
-      driver: local
+
 networks:
   backend:
     driver: bridge

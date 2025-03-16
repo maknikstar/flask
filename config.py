@@ -11,5 +11,5 @@ class Config:
   DB_USER = 'flaskuser'
   DB_PASS = 'flaskpassword'
   DB_PORT = "5432"
-  SQLALCHEMY_DATABASE_URI = f'postgresql://{DB_USER}:{DB_PASS}@localhost:{DB_PORT}/{DB_NAME}'
+  SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{DB_USER}:{DB_PASS}@localhost:{DB_PORT}/{DB_NAME}'
   # SQLALCHEMY_DATABASE_URI = 'postgresql://flaskuser:flaskpassword@localhost:5432/postgres'
