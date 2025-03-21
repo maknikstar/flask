@@ -117,14 +117,8 @@ def edit_data():
 @app.route("/dashboard")
 # @login_required
 def dashboard():
-    # students = db.session.scalars(sa.select(
-    #     Student.name,
-    #     Student.surname,
-    #     Classes.class_name
-    #     ).join(Classes, Classes.id==Student.class_id))
     students = Student.query.join(Classes, Student.class_id==Classes.id)
-    # for st in students:
-    #     print(st.__dict__)
+    
     students_json = json.dumps(model_to_dict(students))
     return render_template('dashboard.html', title='Панель управления', students=students, students_json=students_json)
 
