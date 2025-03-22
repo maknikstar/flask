@@ -132,19 +132,16 @@ a.add_btn:link {
     padding: 5px 20px;
     border-radius: 10px;
 }
+.classes {
+    color:#FFF;
+    margin: 20px;
+}
 a.add_btn:visited {
     text-decoration: none;
     color:#FFF;
-    background-color: #461352;
     margin: 20px;
-    padding: 50px 20px;
-    border-radius: 10px;
 }
 a.classes:link, a.classes:visited {
     text-decoration: none;
     color:#FFF;
-    background-color: #461352;
-    margin: 20px;
-    padding: 50px 20px;
-    border-radius: 10px;
 }

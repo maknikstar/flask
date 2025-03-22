@@ -6,27 +6,31 @@
     <tr>
       {% for i in range(5, 12) %}
         <td>
-          <span><a href="{{ url_for('paral', num=i)}}">{{i}} Классы</a></span>
+          <span><a href="{{ url_for('paral', num=i)}}" class="classes" style="margin: 20px">{{i}} Классы</a></span>
         </td>
       {% endfor %}
     </tr>
-    {% for class in classes %}
-    <tr>
-      
-        <td>
-          <a href="{{ url_for('classes', num=class.id)}}">{{class.class_paral}}{{class.class_name}} класс</a>
-        </td>
-    </tr>
-    {% endfor %}
     <tr>
       <td>
-        <ol>
+        <span class="classes">Классы:</span>
+      </td>
+      <td rowspan="4", colspan="2">
+        <ol class="classes">
         {% for student in students%}
           <li>{{ student["surname"]}} {{student["name"]}}</li>
         {% endfor %}
         </ol>
       </td>
     </tr>
+    {% for class in classes %}
+    <tr>
+      
+        <td>
+          <a href="{{ url_for('classes', num=class.id)}}" class="classes">{{class.class_name}} класс</a>
+        </td>
+    </tr>
+    {% endfor %}
+    
   </table>
     
 {% endblock %}
