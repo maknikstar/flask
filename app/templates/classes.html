@@ -17,7 +17,7 @@
       <td rowspan="4", colspan="2">
         <ol class="classes">
         {% for student in students%}
-          <li>{{ student["surname"]}} {{student["name"]}}</li>
+          <li>{{ student["surname"]}} {{student["name"]}} - {{student["enter_time"]}}</li>
         {% endfor %}
         </ol>
       </td>

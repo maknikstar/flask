@@ -2,7 +2,7 @@ import json
 
 from app import app
 from app import db
-from app.models import User, Student, Classes
+from app.models import User, Student, Classes, Enter_exit
 from app.forms import RegistrationForm, LoginForm, AddStudentsForm, EditInformationForm
 from flask_login import current_user, login_user
 from flask import render_template, flash, redirect, url_for, request
@@ -87,8 +87,23 @@ def paral(num):
     classes = db.session.scalars(sa.select(Classes).filter(Classes.class_parral==str(num)))
     current_class = db.session.scalars(sa.select(Classes).filter(Classes.class_parral==str(num))).first()
 
-    students = model_to_dict(db.session.scalars(sa.select(Student).filter(Student.class_id==current_class.id)))
-
+    # students = model_to_dict(db.session.scalars(sa.select(Student).join(Enter_exit, Enter_exit.student_id==Student.id).filter(Student.class_id==current_class.id)))
+    students = Student.query.join(Enter_exit,
+                                    Enter_exit.student_id==Student.id
+                                    ).filter(Student.class_id==current_class.id
+                                                ).add_columns(Student.name,
+                                                            Student.surname,
+                                                            Enter_exit.enter_time
+                                                                )
+    students = [
+        {
+         "name": s.name,
+         "surname": s.surname,
+         "enter_time": s.enter_time.isoformat().split("T")[1].split('.')[0]
+            
+        }
+        for s in students
+    ]
     return render_template('classes.html', title=current_class.class_name, students=students, classes=classes)
 
 @app.route('/class/<int:num>', methods=['GET'])
