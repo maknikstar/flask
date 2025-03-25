@@ -1,13 +1,15 @@
+import json
+
 from app import app
+from app import db
+from app.models import User, Student, Classes, Enter_exit
+from app.forms import RegistrationForm, LoginForm, AddStudentsForm, EditInformationForm
 from flask_login import current_user, login_user
-import sqlalchemy as sa
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import logout_user, login_required
+import sqlalchemy as sa
 
-from app import db
-from app.models import User, Student, Classes
-from app.forms import RegistrationForm, LoginForm, AddStudentsForm, EditInformationForm
-
+from .utils import model_to_dict
 
 @app.route('/')
 @app.route('/index')
@@ -70,21 +72,47 @@ def add_students():
         class_ = form.class_.data
         class_id = db.session.scalar(sa.select(Classes).filter(Classes.class_name==str(paral) + class_))
         print(class_id)
-        student = Student(name=name, surname=surname, paral=paral, class_id=class_id)
+        student = Student(name=name, surname=surname, paral=paral, class_id=class_id.id)
         db.session.add(student)
         db.session.commit()
         return redirect(url_for('user'))
     return render_template('add_students.html', title='Добавить студентов', form=form)
 
-@app.route('/class/<int:num>',methods=['GET'])
-def classes(num):   
-    students = db.session.scalars(sa.select(Student).filter(Student.paral==num))
-    classes = db.session.scalars(sa.select(Classes).filter(Classes.class_parral==num))
-    sts = {}
-    for student in students:
-        sts.setdefault(student.class_id, []).append(student)
+@app.route("/classes_all")
+def classes_all():
+    return render_template('classes_all.html', num=0)
 
-    return render_template('classes.html', title=str(num) + 'классы', students=sts, classes=classes)
+@app.route('/paral/<int:num>', methods=['GET'])
+def paral(num):
+    classes = db.session.scalars(sa.select(Classes).filter(Classes.class_parral==str(num)))
+    current_class = db.session.scalars(sa.select(Classes).filter(Classes.class_parral==str(num))).first()
+
+    # students = model_to_dict(db.session.scalars(sa.select(Student).join(Enter_exit, Enter_exit.student_id==Student.id).filter(Student.class_id==current_class.id)))
+    students = Student.query.join(Enter_exit,
+                                    Enter_exit.student_id==Student.id
+                                    ).filter(Student.class_id==current_class.id
+                                                ).add_columns(Student.name,
+                                                            Student.surname,
+                                                            Enter_exit.enter_time
+                                                                )
+    students = [
+        {
+         "name": s.name,
+         "surname": s.surname,
+         "enter_time": s.enter_time.isoformat().split("T")[1].split('.')[0]
+            
+        }
+        for s in students
+    ]
+    return render_template('classes.html', title=current_class.class_name, students=students, classes=classes)
+
+@app.route('/class/<int:num>', methods=['GET'])
+def classes(num): 
+    current_class = db.session.scalars(sa.select(Classes).filter(Classes.id==num)).first() 
+
+    students = model_to_dict(db.session.scalars(sa.select(Student).filter(Student.class_id==num)))
+    classes = db.session.scalars(sa.select(Classes).filter(Classes.class_parral==current_class.class_parral))
+    return render_template('classes.html', title=current_class.class_name, students=students, classes=classes)
 
 @app.route('/edit data')
 def edit_data():
@@ -106,11 +134,10 @@ def edit_data():
 @app.route("/dashboard")
 # @login_required
 def dashboard():
-    # students = db.session.scalars(sa.select(Student).join(Classes, Classes.id==Student.class_id))
     students = Student.query.join(Classes, Student.class_id==Classes.id)
-    for st in students:
-        print(st.__dict__)
-    return render_template('dashboard.html', title='Панель управления', students=students)
+    
+    students_json = json.dumps(model_to_dict(students))
+    return render_template('dashboard.html', title='Панель управления', students=students, students_json=students_json)
 
 @app.route("/dashboard-users")
 # @login_required
@@ -118,3 +145,8 @@ def dashboard_users():
 
     return render_template('dashboard-users.html', title='Панель управления')
 
+@app.errorhandler(404)# inbuilt function which takes error as parameter 
+def not_found(e): 
+  
+# defining function 
+  return render_template("404.html") 

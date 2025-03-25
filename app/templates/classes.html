@@ -4,23 +4,33 @@
   <h2>{{ title }} </h2>
   <table width=100% heigth=80% class="class_table">
     <tr>
-      {% for class in classes %}
+      {% for i in range(5, 12) %}
         <td>
-          {{class.class_paral}}{{class.class_name}}
+          <span><a href="{{ url_for('paral', num=i)}}" class="classes" style="margin: 20px">{{i}} Классы</a></span>
         </td>
       {% endfor %}
     </tr>
     <tr>
-      {% for class in students.values() %}
-        <td>
-          <ol>
-          {% for student in class%}
-            <li>{{student.surname}} {{student.name}}</li>
-          {% endfor %}
-          </ol>
-        </td>
-      {% endfor %}
+      <td>
+        <span class="classes">Классы:</span>
+      </td>
+      <td rowspan="4", colspan="2">
+        <ol class="classes">
+        {% for student in students%}
+          <li>{{ student["surname"]}} {{student["name"]}} - {{student["enter_time"]}}</li>
+        {% endfor %}
+        </ol>
+      </td>
     </tr>
+    {% for class in classes %}
+    <tr>
+      
+        <td>
+          <a href="{{ url_for('classes', num=class.id)}}" class="classes">{{class.class_name}} класс</a>
+        </td>
+    </tr>
+    {% endfor %}
+    
   </table>
     
 {% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <!-- about -->
+    <section class="error " id="error">
+        <div class="container error__container ">
+            <h1 class="error__h1 text-center">404 error</h1>
+            <h2 class="error__h1 text-center ">OPS... PAGE NOT FOUND !!!</h2>
+
+            <p class="error__descr text-center">Данная страница не существует.</p>
+            <p class="error__descr text-center">Через <b id="timer">15</b> секунд переход на <b>Главную страницу</b></p>
+
+
+        </div>
+    </section>
+
+
+
+
+    <script>
+        // Устанавливаем начальное значение таймера
+        let timeLeft = 15;
+        // Находим элемент, в котором будет отображаться таймер
+        const timerElement = document.getElementById('timer');
+        // Функция, которая обновляет таймер каждую секунду
+        const countdown = setInterval(() => {
+            // Уменьшаем время на 1 секунду
+            timeLeft--;
+            // Обновляем текст в элементе таймера
+            timerElement.textContent = timeLeft;
+            // Если время вышло, останавливаем таймер
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                timerElement.textContent = 'Время вышло!';
+
+            }
+        }, 1000); // Интервал в 1000 мс (1 секунда)
+        setTimeout("location.href = '{{ url_for('index') }}';", (timeLeft*1000));
+    </script>
+
+    {% endblock %}

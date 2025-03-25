@@ -19,7 +19,7 @@ class User(UserMixin, db.Model):
         teacher = 3
         user = 4
 
-    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    id: so.Mapped[int] = so.mapped_column(primary_key=True, unique=True)
     username: so.Mapped[str] = so.mapped_column(sa.String(64), index=True, unique=True)
     email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, unique=True)
     password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
@@ -49,7 +49,7 @@ def load_user(id):
 
 
 class Classes(db.Model):
-    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    id: so.Mapped[int] = so.mapped_column(primary_key=True, unique=True)
     class_name: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
     class_parral: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
 
@@ -59,7 +59,7 @@ class Classes(db.Model):
 
 class Student(db.Model):
 
-    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    id: so.Mapped[int] = so.mapped_column(primary_key=True, unique=True)
     surname: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
     name: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
     class_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Classes.id, ondelete="CASCADE"), index=True, nullable=True)
@@ -73,31 +73,9 @@ class Student(db.Model):
     def __repr__(self):
         return '<User {}>'.format(self.name)
 
-# class User(db.model):
-
-    # class Status(Enum):
-
-    #     admin = 1
-    #     tutor = 2
-    #     teacher = 3
-
-#     user_id: so.Mapped[int] = so.mapped_column(primary_key=True)
-#     class_id: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
-#     class_parral: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
-#     surname: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
-#     name: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
-#     uuid: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
-#     login: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
-#     password: so.Mapped[str] = so.mapped_column(sa.String(100), index=True)
-#     password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))
-#     status: so.Mapped[Status]
-
-
-#     def __repr__(self):
-#         return '<User {}>'.format(self.username)
 
 class Enter_exit(db.Model):
-    id: so.Mapped[int] = so.mapped_column(primary_key=True)
+    id: so.Mapped[int] = so.mapped_column(primary_key=True, unique=True)
     student_id: so.Mapped[int] = so.mapped_column(sa.ForeignKey(Student.id, ondelete="CASCADE"), index=True)
     enter_time: so.Mapped[datetime] = so.mapped_column(
         index=True, default=lambda: datetime.now())

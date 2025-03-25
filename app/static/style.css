@@ -45,6 +45,7 @@ footer ul li {
 .main {
     background: #7E5288;
     height: 800px;
+    font-family: Inter;
 }
 
 .img {
@@ -131,21 +132,16 @@ a.add_btn:link {
     padding: 5px 20px;
     border-radius: 10px;
 }
+.classes {
+    color:#FFF;
+    margin: 20px;
+}
 a.add_btn:visited {
     text-decoration: none;
     color:#FFF;
-    background-color: #461352;
     margin: 20px;
-    padding: 50px 20px;
-    border-radius: 10px;
 }
-form.authform input{
-font-size:14pt
-font-family: "Inter";
-
-}
-form.regform input{
-font-size:14pt
-font-family: "Inter";
-
+a.classes:link, a.classes:visited {
+    text-decoration: none;
+    color:#FFF;
 }
