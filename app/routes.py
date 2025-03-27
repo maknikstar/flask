@@ -78,16 +78,12 @@ def add_students():
         return redirect(url_for('user'))
     return render_template('add_students.html', title='Добавить студентов', form=form)
 
-@app.route("/classes_all")
-def classes_all():
-    return render_template('classes_all.html', num=0)
-
 @app.route('/paral/<int:num>', methods=['GET'])
 def paral(num):
     classes = db.session.scalars(sa.select(Classes).filter(Classes.class_parral==str(num)))
     current_class = db.session.scalars(sa.select(Classes).filter(Classes.class_parral==str(num))).first()
-
-    # students = model_to_dict(db.session.scalars(sa.select(Student).join(Enter_exit, Enter_exit.student_id==Student.id).filter(Student.class_id==current_class.id)))
+    
+    
     students = Student.query.join(Enter_exit,
                                     Enter_exit.student_id==Student.id
                                     ).filter(Student.class_id==current_class.id
@@ -104,13 +100,29 @@ def paral(num):
         }
         for s in students
     ]
+    print(students)
     return render_template('classes.html', title=current_class.class_name, students=students, classes=classes)
 
 @app.route('/class/<int:num>', methods=['GET'])
 def classes(num): 
     current_class = db.session.scalars(sa.select(Classes).filter(Classes.id==num)).first() 
 
-    students = model_to_dict(db.session.scalars(sa.select(Student).filter(Student.class_id==num)))
+    students = Student.query.join(Enter_exit,
+                                    Enter_exit.student_id==Student.id
+                                    ).filter(Student.class_id==current_class.id
+                                                ).add_columns(Student.name,
+                                                            Student.surname,
+                                                            Enter_exit.enter_time
+                                                                )
+    students = [
+        {
+         "name": s.name,
+         "surname": s.surname,
+         "enter_time": s.enter_time.isoformat().split("T")[1].split('.')[0]
+            
+        }
+        for s in students
+    ]
     classes = db.session.scalars(sa.select(Classes).filter(Classes.class_parral==current_class.class_parral))
     return render_template('classes.html', title=current_class.class_name, students=students, classes=classes)
 
