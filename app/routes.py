@@ -165,8 +165,8 @@ def not_found(e):
 
 @app.route("/aboutproject")
 def aboutproject():
-    return render_template('aboutproject.html', num=0)
+    return render_template('aboutproject.html')
 
 @app.route("/aboutus")
 def aboutus():
-    return render_template('aboutus.html', num=0)
+    return render_template('aboutus.html')
