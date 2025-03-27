@@ -35,7 +35,7 @@
               <a
                 class="header__navbar__link-item"
                 aria-label="Главная"
-                href="#home"
+                href="{{ url_for('index')}}"
                 >Главная</a
               >
             </li>
@@ -43,24 +43,16 @@
               <a
                 class="header__navbar__link-item"
                 aria-label="О нас"
-                href="#about"
+                href="{{ url_for('aboutproject')}}"
                 >О проекте</a
               >
             </li>
-      
-            <li class="header__navbar__link">
-              <a
-                class="header__navbar__link-item"
-                aria-label="Блог"
-                href="#blog"
-                >Новости</a
-              >
             </li>
             <li class="header__navbar__link">
               <a
                 class="header__navbar__link-item"
                 aria-label="Контакты"
-                href="#contact"
+                href="{{ url_for('aboutus')}}"
                 >Контакты</a
               >
             </li>

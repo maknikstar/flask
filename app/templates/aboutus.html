@@ -25,19 +25,15 @@
             <nav class="header__nav">
                 <ul class="header__nav__menu">
                     <li class="header__navbar__link">
-                        <a class="header__navbar__link-item" aria-label="Главная" href="#home">Главная</a>
+                        <a class="header__navbar__link-item" aria-label="Главная" href="{{ url_for('index')}}">Главная</a>
                     </li>
                     <li class="header__navbar__link">
-                        <a class="header__navbar__link-item" aria-label="О нас" href="#about">Личный кабинет</a>
+                        <a class="header__navbar__link-item" aria-label="О нас" href="{{ url_for('login')}}">Личный кабинет</a>
                     </li>
 
 
                     <li class="header__navbar__link">
-                        <a class="header__navbar__link-item" aria-label="Контакты" href="#contact">Выйти из аккаунта</a>
-                    </li>
-
-                    <li class="header__navbar__link">
-                        <a class="header__navbar__link-item" aria-label="Контакты" href="#contact">Классы</a>
+                        <a class="header__navbar__link-item" aria-label="Контакты" href="{{ url_for('logout')}}">Выйти из аккаунта</a>
                     </li>
 
                 </ul>
@@ -71,35 +67,35 @@
                 </div>
                 <ul class="row aboutus__group">
                     <li class="col-md-3 aboutus__card">
-                        <img src="{{ url_for('static', filename='assets/images/person_girl_v1.png')}}">
+                        <img src="{{ url_for('static', filename='assets/images/Varya.jpg')}}">
                         <span>Варя</span>
                         <p>Fronend developer</p>
 
                     </li>
                     <li class="col-md-3 aboutus__card">
-                        <img src="{{ url_for('static', filename='assets/images/person_man_v1.png')}}">
+                        <img src="{{ url_for('static', filename='assets/images/Denis.jpg')}}">
                         <span>Денис Николаевич</span>
                         <p>Team leader</p>
                     </li>
                     <li class="col-md-3 aboutus__card">
-                        <img src="{{ url_for('static', filename='assets/images/person_man_v1.png')}}">
+                        <img src="{{ url_for('static', filename='assets/images/Daniil.jpg')}}">
                         <span>Даниил</span>
                         <p>Frontend developer</p>
                     </li>
                 </ul>
                 <ul class="row aboutus__group">
                     <li class="col-md-3 aboutus__card">
-                        <img src="{{ url_for('static', filename='assets/images/person_man_v1.png')}}">
+                        <img src="{{ url_for('static', filename='assets/images/Makar.jpg')}}">
                         <span>Макар</span>
                         <p>Backend developer</p>
                     </li>
                     <li class="col-md-3 aboutus__card">
-                        <img src="{{ url_for('static', filename='assets/images/person_girl_v1.png')}}">
+                        <img src="{{ url_for('static', filename='assets/images/Katya.jpg')}}">
                         <span>Катя</span>
                         <p>Fronend developer</p>
                     </li>
                     <li class="col-md-3 aboutus__card">
-                        <img src="{{ url_for('static', filename='assets/images/person_man_v1.png')}}">
+                        <img src="{{ url_for('static', filename='assets/images/Matvey.jpg')}}">
                         <span>Матвей</span>
                         <p>Backend developer</p>
                     </li>
@@ -121,16 +117,10 @@
                     </a>
                 </div>
 
-                <div class="col-md-4">
-                    <nav class="footer__nav">
-                        <h4 class="footer__h4">Быстрые ссылки</h4>
-                        <span class="footer__line"></span>
-
- <div class="col-md-4">
-            <nav class="footer__nav">
-              <h4 class="footer__h4">Быстрые ссылки</h4>
-              <span class="footer__line"></span>
-
+              <div class="col-md-4">
+                  <nav class="footer__nav">
+                      <h4 class="footer__h4">Быстрые ссылки</h4>
+                      <span class="footer__line"></span>
               <div class="footer__center__block">
                 <ul class="footer__nav__menu">
                   <li class="footer__navbar__link">
@@ -235,8 +225,6 @@
           </div>
         </div>
       </div>
-
     </footer>
-    
   </body>
 </html>
